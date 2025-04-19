@@ -41,21 +41,15 @@ int main() {
         return 1;
     }
 
-    // multiple requests
-    int32_t err = query(fd, "hello1");
-    if (err) {
-        goto L_DONE;
-    }
-    err = query(fd, "hello2");
-    if (err) {
-        goto L_DONE;
-    }
-    err = query(fd, "hello3");
-    if (err) {
-        goto L_DONE;
+    while (true) {
+        char buf[k_max_msg + 1];
+        std::cout << "yedis> ";
+        std::cin.getline(buf, k_max_msg + 1);
+        if (const int err = query(fd, buf)) {
+            break;
+        }
     }
 
-L_DONE:
     close(fd);
     return 0;
 }
