@@ -128,6 +128,7 @@ static bool try_one_request(Conn *conn) {
             break;
         default:
             std::cout << "invalid command" << std::endl;
+            response = "invalid command";
     }
 
     res_len = static_cast<uint32_t>(response.size());
@@ -146,7 +147,6 @@ static bool try_one_request(Conn *conn) {
 
 static void handle_write(Conn *conn) {
     assert(!conn->outgoing.empty());
-    // TODO: can't write this because data is shitty
     const ssize_t rv = write(conn->fd, conn->outgoing.data().data(), conn->outgoing.data().size());
     if (rv < 0 && errno == EAGAIN) {
         return; // actually not ready
