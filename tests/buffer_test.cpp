@@ -43,8 +43,8 @@ TEST_F(BufferTest, PartialConsume) {
 }
 
 TEST_F(BufferTest, MultipleAppends) {
-    const uint8_t data1[] = {1, 2, 3};
-    const uint8_t data2[] = {4, 5, 6};
+    constexpr uint8_t data1[] = {1, 2, 3};
+    constexpr uint8_t data2[] = {4, 5, 6};
 
     buffer.append(data1, sizeof(data1));
     buffer.append(data2, sizeof(data2));
@@ -68,7 +68,7 @@ TEST_F(BufferTest, CompactionTrigger) {
     EXPECT_EQ(buffer.start, 100); // After compaction, start should be set to the previously consumed amount
     EXPECT_LT(buffer.storage.size(), large_data.size()); // Storage should be smaller after compaction
 
-    auto span = buffer.data();
+    const auto span = buffer.data();
     EXPECT_EQ(span.size(), 400); // Should still have correct amount of data
     // Verify data integrity after compaction
     for (size_t i = 0; i < span.size(); ++i) {
@@ -77,7 +77,7 @@ TEST_F(BufferTest, CompactionTrigger) {
 }
 
 TEST_F(BufferTest, EmptyAfterConsume) {
-    const uint8_t data[] = {1, 2, 3};
+    constexpr uint8_t data[] = {1, 2, 3};
     buffer.append(data, sizeof(data));
     buffer.consume(buffer.size());
 
@@ -88,8 +88,8 @@ TEST_F(BufferTest, EmptyAfterConsume) {
 }
 
 TEST_F(BufferTest, DataIntegrityAfterOperations) {
-    const uint8_t data1[] = {1, 2, 3, 4, 5};
-    const uint8_t data2[] = {6, 7, 8};
+    constexpr uint8_t data1[] = {1, 2, 3, 4, 5};
+    constexpr uint8_t data2[] = {6, 7, 8};
 
     buffer.append(data1, sizeof(data1));
     buffer.consume(2);

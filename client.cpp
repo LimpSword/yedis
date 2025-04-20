@@ -45,7 +45,7 @@ int main() {
         char buf[k_max_msg + 1];
         std::cout << "yedis> ";
         std::cin.getline(buf, k_max_msg + 1);
-        if (const int err = query(fd, buf)) {
+        if (query(fd, buf)) {
             break;
         }
     }

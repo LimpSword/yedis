@@ -98,7 +98,7 @@ static bool try_one_request(Conn *conn) {
     std::string response;
     uint32_t res_len = 0;
     switch (auto [name, args] = parse_command(msg); name) {
-        case k_get:
+        case GET:
             if (args.size() != 1) {
                 std::cout << "invalid get command" << std::endl;
                 break;
@@ -110,7 +110,7 @@ static bool try_one_request(Conn *conn) {
                 response = "nil";
             }
             break;
-        case k_set:
+        case SET:
             if (args.size() != 2) {
                 std::cout << "invalid set command" << std::endl;
                 break;
@@ -118,7 +118,7 @@ static bool try_one_request(Conn *conn) {
             g_db[args[0]] = args[1];
             response = "ok";
             break;
-        case k_del:
+        case DEL:
             if (args.size() != 1) {
                 std::cout << "invalid del command" << std::endl;
                 break;
