@@ -54,6 +54,7 @@ inline int read_line(const int connfd, char *buf) {
         return err;
     }
     memcpy(buf, &rbuf[4], len);
+    buf[len] = '\0';
     return 0;
 }
 
